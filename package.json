@@ -1,6 +1,6 @@
 {
   "name": "hubot-google",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Search on google and get the first result",
   "main": "index.coffee",
   "scripts": {
