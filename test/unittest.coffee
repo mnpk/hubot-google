@@ -1,50 +1,22 @@
-path = require 'path'
-Robot = require("hubot/src/robot")
-TextMessage = require("hubot/src/message").TextMessage
-# Load assertion methods to this scope
-chai = require 'chai'
 blanket = require 'blanket'
-# nock = require 'nock'
-{ expect } = chai
-
+tbot = require 'tbot'
 
 describe 'hubot', ->
-  robot = null
-  user = null
-  adapter = null
+  testbot = null
 
+  # create
   beforeEach (done)->
-    robot = new Robot null, 'mock-adapter', yes, 'hubot'
-    robot.adapter.on 'connected', ->
-      # Project script
-      process.env.HUBOT_AUTH_ADMIN = "1"
-      hubotScripts = path.resolve 'node_modules', 'hubot', 'src', 'scripts'
-      # robot.loadFile hubotScripts, 'auth.coffee'
-      # load files to test
-      robot.loadFile path.resolve('.', 'src'), 'google.coffee'
-      # create user
-      user = robot.brain.userForId '1', {
-        name: 'mocha',
-        root: '#mocha'
-      }
-      adapter = robot.adapter
-      do done
-    do robot.run
+    testbot = new tbot done
+    testbot.load './src/google.coffee'
 
   afterEach ->
-    do robot.server.close
-    do robot.shutdown
+    do testbot.clear
 
   describe 'google', ->
-    it 'should send search result with command 구글', (done)->
-      adapter.on 'send', (env, str)->
-        result = "*The Go Programming Language*\n_ https://golang.org/ _"
-        expect(str[0]).to.equal result
-        do done
-      adapter.receive new TextMessage user, 'hubot 구글 go'
-    it 'should send search result with command google', (done)->
-      adapter.on 'send', (env, str)->
-        result = "*The Go Programming Language*\n_ https://golang.org/ _"
-        expect(str[0]).to.equal result
-        do done
-      adapter.receive new TextMessage user, 'hubot google go'
+    it 'should send search result with command 구글', ()->
+      testbot.send 'hubot 구글 go', (res)->
+        assert.equal res, "*The Go Programming Language*\n_ https://golang.org/ _"
+
+    it 'should send search result with command google', ()->
+      testbot.send 'hubot google go', (res)->
+        assert.equal res, "*The Go Programming Language*\n_ https://golang.org/ _"
