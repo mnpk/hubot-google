@@ -1,6 +1,6 @@
 {
   "name": "hubot-google",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Search on google and get the first result",
   "main": "index.coffee",
   "scripts": {
@@ -24,15 +24,15 @@
     "url": "https://github.com/mnpk/hubot-google/issues"
   },
   "homepage": "https://github.com/mnpk/hubot-google",
-  "dependencies": {
-  },
+  "dependencies": {},
   "devDependencies": {
-    "tbot": "^0.1.0",
-    "mocha": "^2.2.4",
-    "coffee-script": "^1.9.2",
-    "mocha-lcov-reporter": "0.0.2",
     "blanket": "alex-seville/blanket",
-    "coveralls": "^2.11.2"
+    "chai": "^2.3.0",
+    "coffee-script": "^1.9.2",
+    "coveralls": "^2.11.2",
+    "mocha": "^2.2.4",
+    "mocha-lcov-reporter": "0.0.2",
+    "testbot": "^1.0.1"
   },
   "config": {
     "blanket": {
